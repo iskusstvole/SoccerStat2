@@ -1,13 +1,9 @@
+
 <template>
-<div>
-
-</div>
-</template>
-
-<script>
-
-</script>
-
-<style scoped>
-
-</style>
+    <div>
+      <h1>Календарь лиги</h1>
+      <p>ID: {{ $route.params.id }}</p>
+      <!-- Здесь можно добавить дополнительную информацию о лиге -->
+    </div>
+  </template>
+  

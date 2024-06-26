@@ -1,51 +1,46 @@
+
 <template>
-    <div>
-        <h1 v-if="error">Упс! произошла ошибка {{ error }}</h1>
-    
-       <div v-if="competitions">
-        <div v-for="competition in competitions" :key="competition.id">
-            <v-container 
-                    grid-list-md text-xs-center>
-                        <v-layout row wrap>
-                        <v-flex v-for="i in 3" :key="`${i}`" xs4>
-                            <v-card 
-                            class="mx-auto"
-                            max-width="344"
-                            min-width="250"
-                            hover
-                            >
-                            <v-card-item>
-                            <v-card-title>
-                                {{name}}
-                            </v-card-title>
-                            <v-img
-                                height="200px"
-                                
-                                cover
-                                ></v-img>
-                            </v-card-item>
-                            
-                            <v-card-text>
-                                
-                            </v-card-text>
-                        </v-card>
-                         </v-flex>
-                        </v-layout>
-                    </v-container>
-        </div>
-                    
-            </div>
-        </div>
-    
-    </template>
-
-<script setup>
-const { 
-    data : competitions,
-    error,
-    refresh,
-
-
- } = await useFetch('https://api.football-data.org/v2/competitions/')
-
-</script>
+    <v-container>
+      <v-row>
+        <v-col
+          v-for="league in leagues"
+          :key="league.id"
+          cols="12"
+          sm="6"
+          md="4"
+        >
+          <v-card
+          nuxt
+          :to="{ name: 'CompetitionCalendar', params: { id: league.id } }"
+          hover>
+            <v-card-title>{{ league.name }}</v-card-title>
+            <v-img
+            :src="league.emblemUrl"
+            alt="League emblem"
+            height="200"
+            hover
+          ></v-img>
+            <v-card-subtitle>{{ league.area.name }}</v-card-subtitle>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
+  </template>
+  
+  <script setup>
+  import { ref, onMounted } from 'vue'
+  const leagues = ref([])
+  
+  const fetchLeagues = async () => {
+    try {
+      const { $axios } = useNuxtApp()
+      const response = await $axios.get('/competitions')
+      leagues.value = response.data.competitions
+    } catch (error) {
+      console.error('Failed to fetch leagues:', error)
+    }
+  }
+  
+  onMounted(fetchLeagues)
+  </script>
+  
