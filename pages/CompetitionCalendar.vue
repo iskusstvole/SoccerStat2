@@ -30,6 +30,7 @@ import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
+console.log('Route params1:', route.query) 
 const matches = ref([])
 const headers = [
   { text: 'Дата проведения', value: 'date' },
@@ -42,7 +43,8 @@ const headers = [
 const fetchMatches = async () => {
   try {
     const { $axios } = useNuxtApp()
-    const response = await $axios.get(`/v4/competitions/${route.params.id}/matches`)
+    console.log(`Fetching matches for competition ID: ${route.query?.id}`)
+    const response = await $axios.get(`/v4/competitions/${route.query?.id}/matches`)
     matches.value = response.data.matches
   } catch (error) {
     console.error('Failed to fetch matches:', error)

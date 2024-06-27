@@ -11,7 +11,7 @@
         >
           <v-card
           nuxt
-          :to="{ name: 'CompetitionCalendar', params: { id: league.id } }"
+          :to="{ name: 'CompetitionCalendar', query: { id: league.id } }"
           hover>
             <v-card-title>{{ league.name }}</v-card-title>
             <v-img
