@@ -4,19 +4,19 @@
       <v-col>
         <h1>League Details</h1>
         <v-data-table :headers="headers" :items="matches" class="elevation-1">
-          <template v-slot:item.date="{ item }">
+          <template #[`item.date`]="{ item }">
             <span>{{ formatDate(item.utcDate) }}</span>
           </template>
-          <template v-slot:item.time="{ item }">
+          <template #[`item.time`]="{ item }">
             <span>{{ formatTime(item.utcDate) }}</span>
           </template>
-          <template v-slot:item.status="{ item }">
+          <template #[`item.status`]="{ item }">
             <span>{{ item.status }}</span>
           </template>
-          <template v-slot:item.teams="{ item }">
+          <template #[`item.teams`]="{ item }">
             <span>{{ item.homeTeam.name }} vs {{ item.awayTeam.name }}</span>
           </template>
-          <template v-slot:item.score="{ item }">
+          <template #[`item.score`]="{ item }">
             <span>{{ item.score.fullTime.homeTeam }} - {{ item.score.fullTime.awayTeam }}</span>
           </template>
         </v-data-table>

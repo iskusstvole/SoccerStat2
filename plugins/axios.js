@@ -5,7 +5,7 @@ export default defineNuxtPlugin(() => {
   const config = useRuntimeConfig()
   
   const instance = axios.create({
-    baseURL: 'https://api.football-data.org/v2',
+    baseURL: 'https://api.football-data.org/',
     headers: {
       'X-Auth-Token': config.public.footballDataApiKey
     }
