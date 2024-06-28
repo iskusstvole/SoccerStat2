@@ -2,7 +2,7 @@
   <v-container>
     <v-row>
       <v-col>
-        <h1>League Details</h1>
+        <h1>Календарь лиги</h1>
         <v-data-table :headers="headers" :items="matches" class="elevation-1">
           <template #[`item.date`]="{ item }">
             <span>{{ formatDate(item.utcDate) }}</span>
@@ -44,7 +44,7 @@ const fetchMatches = async () => {
   try {
     const { $axios } = useNuxtApp()
     console.log(`Fetching matches for competition ID: ${route.query?.id}`)
-    const response = await $axios.get(`/v4/competitions/${route.query?.id}/matches`)
+    const response = await $axios.get(`v4/competitions/${route.query?.id}/matches?matchday=1`)
     matches.value = response.data.matches
   } catch (error) {
     console.error('Failed to fetch matches:', error)

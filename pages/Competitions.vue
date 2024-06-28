@@ -1,5 +1,10 @@
 
 <template>
+   <v-text-field 
+   label="Поиск" 
+   variant="solo-filled"
+   max-width="344"
+   ></v-text-field>
     <v-container>
       <v-row>
         <v-col
@@ -11,7 +16,7 @@
         >
           <v-card
           nuxt
-          :to="{ name: 'CompetitionCalendar', query: { id: league.id } }"
+          :to="{ name: 'CompetitionCalendar', query: {  id: league.id } }"
           hover>
             <v-card-title>{{ league.name }}</v-card-title>
             <v-img
@@ -34,7 +39,7 @@
   const fetchLeagues = async () => {
     try {
       const { $axios } = useNuxtApp()
-      const response = await $axios.get('/v2/competitions')
+      const response = await $axios.get('/v4/competitions')
       leagues.value = response.data.competitions
     } catch (error) {
       console.error('Failed to fetch leagues:', error)
