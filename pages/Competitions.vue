@@ -4,11 +4,13 @@
    label="Поиск" 
    variant="solo-filled"
    max-width="344"
+   v-model="searchQuery"
+    @input="filterLeagues"
    ></v-text-field>
     <v-container>
       <v-row>
         <v-col
-          v-for="league in leagues"
+          v-for="league in filteredLeagues.length > 0 ? filteredLeagues : leagues"
           :key="league.id"
           cols="12"
           sm="6"
@@ -35,6 +37,13 @@
   <script setup>
   import { ref, onMounted } from 'vue'
   const leagues = ref([])
+  const searchQuery = ref('')
+const filteredLeagues = computed(() =>
+  leagues.value.filter(league =>
+    league.name.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
+    league.area.name.toLowerCase().includes(searchQuery.value.toLowerCase()),
+  )
+)
   
   const fetchLeagues = async () => {
     try {
