@@ -39,7 +39,7 @@
   const fetchLeagues = async () => {
     try {
       const { $axios } = useNuxtApp()
-      const response = await $axios.get('/v4/competitions')
+      const response = await $axios.get('competitions')
       leagues.value = response.data.competitions
     } catch (error) {
       console.error('Failed to fetch leagues:', error)
