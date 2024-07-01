@@ -1,14 +1,7 @@
 <template>
-<div>
-    
-    <NuxtPage /> 
-</div>
-</template>
-
-<script>
-
-</script>
-
-<style scoped>
-
-</style>
+    <NuxtLayout>
+        
+      <NuxtPage />
+      <Header/>
+    </NuxtLayout>
+  </template>

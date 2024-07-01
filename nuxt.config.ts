@@ -1,6 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 export default defineNuxtConfig({
+  runtimeConfig: {
+    public: {
+      footballDataApiKey: '85d4b5e97a944b588b2b5a0a2d848633'
+    }
+  },
   components: true,
   devtools: { enabled: true },
   build: {
