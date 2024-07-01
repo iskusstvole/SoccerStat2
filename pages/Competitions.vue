@@ -22,7 +22,7 @@
           hover>
             <v-card-title>{{ league.name }}</v-card-title>
             <v-img
-            :src="league.emblemUrl"
+            :src="league.emblem"
             alt="League emblem"
             height="200"
             hover
