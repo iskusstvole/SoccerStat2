@@ -1,4 +1,4 @@
-
+import '@mdi/font/css/materialdesignicons.css';
 import ru from './vuetify-ru.js'; 
 
 import 'vuetify/styles'
