@@ -29,7 +29,7 @@
       
         <v-data-table 
         
-        hover
+        
         :headers="headers" 
         :items="filteredMatches.length ? filteredMatches : matches" 
         class="elevation-1 mt-2"

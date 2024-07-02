@@ -2,12 +2,12 @@
 <div>
     <Header />
 
-    <main>
-      <section>
-        <h1>Всем привет</h1>
-      </section>
-    </main>
-
-    
   </div>
 </template>
+<script setup>
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+router.replace({ name: 'Competitions' });
+</script>
