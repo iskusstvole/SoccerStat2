@@ -6,13 +6,14 @@
         <v-row>
       <v-col>
         <h1>Матчи</h1>
-        <v-row 
+        <v-row
+        class="mt-4" 
         align="center" 
         >
          <span class="text-center mb-4"> c </span>
     <v-text-field 
     v-model="startDate"
-    class="mr-2 "
+    class="mr-2  "
     type="date" 
     hover 
     max-width="160"
@@ -62,6 +63,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
+import Breadcrumbs from '@/components/Breadcrumbs.vue'
 
 
 const route = useRoute()
@@ -105,7 +107,7 @@ const formatDate = (utcDate) => {
 
 const formatTime = (utcDate) => {
   const date = new Date(utcDate)
-  return date.toLocaleTimeString()
+  return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) 
 }
 const getStatus = (status) => {
   switch (status) {

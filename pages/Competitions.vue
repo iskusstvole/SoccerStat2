@@ -4,7 +4,7 @@
     variant="solo-filled"
     max-width="344"
     v-model="searchQuery"
-    @input="filterLeagues"
+    @input="filteredLeagues"
   ></v-text-field>
   
   <v-container>
@@ -25,7 +25,7 @@
           <v-img
             :src="league.emblem"
             alt="League emblem"
-            height="200"
+            height="160"
             hover
           ></v-img>
           <v-card-subtitle>{{ league.area.name }}</v-card-subtitle>
@@ -35,10 +35,10 @@
   </v-container>
 
   <Pagination
-    :totalItems="filteredLeagues.length"
-    :itemsPerPage="itemsPerPage"
-    @page-change="handlePageChange"
-  />
+      :totalItems="filteredLeagues.length"
+      :itemsPerPage="itemsPerPage"
+      @page-change="handlePageChange"
+    />
 </template>
 
 <script setup>
@@ -48,7 +48,7 @@ import Pagination from '@/components/Pagination.vue'
 const leagues = ref([])
 const searchQuery = ref('')
 const currentPage = ref(1)
-const itemsPerPage = ref(10)
+const itemsPerPage = ref(9)
 
 const filteredLeagues = computed(() =>
   leagues.value.filter(league =>
@@ -56,12 +56,6 @@ const filteredLeagues = computed(() =>
     league.area.name.toLowerCase().includes(searchQuery.value.toLowerCase()),
   )
 )
-
-const paginatedLeagues = computed(() => {
-  const start = (currentPage.value - 1) * itemsPerPage.value
-  const end = start + itemsPerPage.value
-  return filteredLeagues.value.slice(start, end)
-})
 
 const fetchLeagues = async () => {
   try {
@@ -73,13 +67,18 @@ const fetchLeagues = async () => {
   }
 }
 
+const paginatedLeagues = computed(() => {
+  const start = (currentPage.value - 1) * itemsPerPage.value
+  const end = start + itemsPerPage.value
+  return filteredLeagues.value.slice(start, end)
+})
+
 const handlePageChange = (newPage) => {
   currentPage.value = newPage
 }
 
 onMounted(fetchLeagues)
 
-// Watch for changes in searchQuery and reset to the first page
 watch(searchQuery, () => {
   currentPage.value = 1
 })
