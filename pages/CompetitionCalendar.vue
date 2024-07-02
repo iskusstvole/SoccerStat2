@@ -1,16 +1,13 @@
 <template>
   
   <v-container>
-    <div class="breadcrumbs">
-      <span @click="navigateToCompetitions">Лиги</span> >
-      <span>{{ leagueName }}</span>
-    </div>
+   <Breadcrumbs/>
+   
         <v-row>
       <v-col>
         <h1>Матчи</h1>
         <v-row 
         align="center" 
-       
         >
          <span class="text-center mb-4"> c </span>
     <v-text-field 
@@ -72,7 +69,7 @@ const router = useRouter()
 
 const matches = ref([])
 const filteredMatches = ref([])
-const leagueName = ref('')
+
 
 
 const headers = [
@@ -86,10 +83,7 @@ const headers = [
 const startDate = ref('')
 const endDate = ref('')
 
-const breadcrumbs = ref([
-  { text: 'Лиги', disabled: false, href: '/competitions' },
-  { text: '', disabled: true }, // Пока пустое название лиги
-])
+
 
 const fetchMatches = async () => {
   try {
@@ -180,16 +174,5 @@ onMounted(fetchMatches)
   width: 30px; /* Ширина для текста "c" */
   height: 100%;
 }
-.breadcrumbs {
-  margin-bottom: 20px;
-}
 
-.breadcrumbs span {
-  cursor: pointer;
-  color: #3f51b5;
-}
-
-.breadcrumbs span:hover {
-  text-decoration: underline;
-}
 </style>
