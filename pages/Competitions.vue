@@ -72,9 +72,11 @@ const handlePageChange = (newPage) => {
   currentPage.value = newPage
 }
 
-onMounted(fetchLeagues)
+
 
 watch(searchQuery, () => {
   currentPage.value = 1
 })
+
+onMounted(fetchLeagues)
 </script>

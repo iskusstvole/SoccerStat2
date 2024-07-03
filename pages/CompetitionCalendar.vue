@@ -68,7 +68,6 @@ import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 
 
-
 const route = useRoute()
 const router = useRouter()
 
@@ -82,13 +81,7 @@ const breadcrumbs = ref([
 ])
 
 
-const headers = [
-  { title: 'Дата проведения матча', value: 'date', align: 'start', width: '150px' },
-  { title: 'Время', value: 'time', align: 'start', width: '100px' },
-  { title: 'Статус матча', value: 'status', align: 'start', width: '150px' },
-  { title: 'Команды', value: 'teams', align: 'start', width: '300px' }, 
-  { title: 'Счет', value: 'score', align: 'start', width: '100px' }
-]
+
 
 const startDate = ref('')
 const endDate = ref('')
@@ -108,48 +101,10 @@ const fetchMatches = async () => {
   }
 }
 
-const formatDate = (utcDate) => {
-  const date = new Date(utcDate)
-  return date.toLocaleDateString()
-}
 
-const formatTime = (utcDate) => {
-  const date = new Date(utcDate)
-  return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) 
-}
-const getStatus = (status) => {
-  switch (status) {
-    case 'FINISHED':
-      return 'Закончен';
-    case 'IN_PLAY':
-      return 'В игре';
-    case 'TIMED':
-      return 'Запланирован';
-    case 'POSTPONED':
-      return 'Отложен';
-    case 'CANCELED':
-      return 'Отменен';
-    case 'LIVE':
-      return 'В прямом эфире';
-    case 'PAUSED':
-      return 'Пауза';
-    case 'SUSPENDED':
-      return 'Приостановлен';
-    default:
-      return status;
-  }
-}
 
-const getScore = (item) => {
-  if (item.status === 'FINISHED') {
-    const fullTimeScore = `(${item.score.fullTime.home} - ${item.score.fullTime.away})`;
-    const halfTimeScore = item.score.halfTime ? `(${item.score.halfTime.home} - ${item.score.halfTime.away})` : '';
-    const penaltiesScore = item.penalties ? `(${item.penalties.home} - ${item.penalties.away})` : '(-)';
-    return `${fullTimeScore}${halfTimeScore}${penaltiesScore}`;
-  } else {
-    return 'Матч еще не состоялся';
-  }
-}
+
+
 
 // Фильтрация матчей по выбранному диапазону дат
 
@@ -176,23 +131,3 @@ onMounted(fetchMatches)
 
 </script>
 
-<style scoped>
-.text-center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 30px; /* Ширина для текста "c" */
-  height: 100%;
-}
-.breadcrumbs {
-  margin-bottom: 20px;
-}
-.breadcrumbs span {
-  cursor: pointer;
-  color: #3f51b5;
-}
-.breadcrumbs span:hover {
-  text-decoration: underline;
-}
-
-</style>
