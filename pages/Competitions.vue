@@ -14,6 +14,7 @@
           nuxt
           :to="{ name: 'CompetitionCalendar', query: { id: league.id } }"
           hover
+          
         >
           <v-card-title>{{ league.name }}</v-card-title>
           <v-img
@@ -36,47 +37,46 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, watch } from 'vue'
-import Pagination from '@/components/Pagination.vue'
-import Search from '@/components/Search.vue'
+import { ref, computed, onMounted, watch } from "vue";
+import Pagination from "@/components/Pagination.vue";
+import Search from "@/components/Search.vue";
 
-const leagues = ref([])
-const searchQuery = ref('')
-const currentPage = ref(1)
-const itemsPerPage = ref(9)
+const leagues = ref([]);
+const searchQuery = ref("");
+const currentPage = ref(1);
+const itemsPerPage = ref(9);
 
 const filteredLeagues = computed(() =>
-  leagues.value.filter(league =>
-    league.name.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-    league.area.name.toLowerCase().includes(searchQuery.value.toLowerCase()),
+  leagues.value.filter(
+    (league) =>
+      league.name.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
+      league.area.name.toLowerCase().includes(searchQuery.value.toLowerCase())
   )
-)
+);
 
 const fetchLeagues = async () => {
   try {
-    const { $axios } = useNuxtApp()
-    const response = await $axios.get('competitions')
-    leagues.value = response.data.competitions
+    const { $axios } = useNuxtApp();
+    const response = await $axios.get("competitions");
+    leagues.value = response.data.competitions;
   } catch (error) {
-    console.error('Failed to fetch leagues:', error)
+    console.error("Failed to fetch leagues:", error);
   }
-}
+};
 
 const paginatedLeagues = computed(() => {
-  const start = (currentPage.value - 1) * itemsPerPage.value
-  const end = start + itemsPerPage.value
-  return filteredLeagues.value.slice(start, end)
-})
+  const start = (currentPage.value - 1) * itemsPerPage.value;
+  const end = start + itemsPerPage.value;
+  return filteredLeagues.value.slice(start, end);
+});
 
 const handlePageChange = (newPage) => {
-  currentPage.value = newPage
-}
-
-
+  currentPage.value = newPage;
+};
 
 watch(searchQuery, () => {
-  currentPage.value = 1
-})
+  currentPage.value = 1;
+});
 
-onMounted(fetchLeagues)
+onMounted(fetchLeagues);
 </script>

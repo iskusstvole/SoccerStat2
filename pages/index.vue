@@ -1,13 +1,12 @@
 <template>
-<div>
+  <div>
     <Header />
-
   </div>
 </template>
 <script setup>
-import { useRouter } from 'vue-router';
+import { useRouter } from "vue-router";
 
 const router = useRouter();
 
-router.replace({ name: 'Competitions' });
+router.replace({ name: "Competitions" });
 </script>
