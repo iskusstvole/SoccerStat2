@@ -1,7 +1,7 @@
 <template>
   
   <v-container>
-   <Breadcrumbs/>
+   
    
         <v-row>
       <v-col>
@@ -63,7 +63,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
-import Breadcrumbs from '@/components/Breadcrumbs.vue'
+
 
 
 const route = useRoute()
@@ -94,7 +94,7 @@ const fetchMatches = async () => {
     const response = await $axios.get(`competitions/${route.query?.id}/matches?matchday=1`)
     matches.value = response.data.matches
     
-    leagueName.value = response.data.competition.name
+    
   } catch (error) {
     console.error('Failed to fetch matches:', error)
   }
@@ -160,9 +160,7 @@ const applyDateFilter = () => {
 }
   
 
-const navigateToCompetitions = () => {
-  router.push('/competitions')
-}
+
 onMounted(fetchMatches)
 
 

@@ -1,12 +1,6 @@
 <template>
-  <v-text-field 
-    label="Поиск" 
-    variant="solo-filled"
-    max-width="344"
-    v-model="searchQuery"
-    @input="filteredLeagues"
-  ></v-text-field>
-  
+  <Search v-model="searchQuery" />
+
   <v-container>
     <v-row>
       <v-col
@@ -35,15 +29,16 @@
   </v-container>
 
   <Pagination
-      :totalItems="filteredLeagues.length"
-      :itemsPerPage="itemsPerPage"
-      @page-change="handlePageChange"
-    />
+    :totalItems="filteredLeagues.length"
+    :itemsPerPage="itemsPerPage"
+    @page-change="handlePageChange"
+  />
 </template>
 
 <script setup>
 import { ref, computed, onMounted, watch } from 'vue'
 import Pagination from '@/components/Pagination.vue'
+import Search from '@/components/Search.vue'
 
 const leagues = ref([])
 const searchQuery = ref('')
