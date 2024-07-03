@@ -1,6 +1,10 @@
 <template>
   
-    <v-container>   
+    <v-container>  
+      <div class="breadcrumbs">
+      <span @click="navigateToTeams">Команды</span> >
+      <span>{{ teamName }}</span>
+    </div> 
           <v-row>
         <v-col>
           <h1>Матчи</h1>
@@ -67,7 +71,13 @@
   
   const matches = ref([])
   const filteredMatches = ref([])
-  
+  const teamName = ref('')
+
+  const breadcrumbs = ref([
+  { text: 'Команды', disabled: false, href: '/teams' },
+  { text: '', disabled: true }, 
+])
+
   
   
   const headers = [
@@ -90,6 +100,12 @@
       const response = await $axios.get(`teams/${route.query?.id}/matches`)
       matches.value = response.data.matches
       
+      const teamId = route.query?.id;
+
+      teamName.value = response.data.matches[0].homeTeam.id == teamId 
+                 ? response.data.matches[0].homeTeam.name 
+                 : response.data.matches[0].awayTeam.name;
+                 
       
     } catch (error) {
       console.error('Failed to fetch matches:', error)
@@ -155,7 +171,9 @@
     }
   }
     
-  
+  const navigateToTeams = () => {
+  router.push('/Teams')
+}
  
   onMounted(fetchMatches)
   
@@ -167,8 +185,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 30px; /* Ширина для текста "c" */
+    width: 30px; 
     height: 100%;
   }
-  
+  .breadcrumbs {
+  margin-bottom: 20px;
+}
+.breadcrumbs span {
+  cursor: pointer;
+  color: #3f51b5;
+}
+.breadcrumbs span:hover {
+  text-decoration: underline;
+}
   </style>

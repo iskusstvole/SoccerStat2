@@ -1,7 +1,10 @@
 <template>
   
   <v-container>
-   
+    <div class="breadcrumbs">
+      <span @click="navigateToCompetitions">Лиги</span> >
+      <span>{{ leagueName }}</span>
+    </div>
    
         <v-row>
       <v-col>
@@ -71,7 +74,12 @@ const router = useRouter()
 
 const matches = ref([])
 const filteredMatches = ref([])
+const leagueName = ref('')
 
+const breadcrumbs = ref([
+  { text: 'Лиги', disabled: false, href: '/competitions' },
+  { text: '', disabled: true }, // Пока пустое название лиги
+])
 
 
 const headers = [
@@ -93,7 +101,7 @@ const fetchMatches = async () => {
     console.log(`Fetching matches for competition ID: ${route.query?.id}`)
     const response = await $axios.get(`competitions/${route.query?.id}/matches?matchday=1`)
     matches.value = response.data.matches
-    
+    leagueName.value = response.data.competition.name
     
   } catch (error) {
     console.error('Failed to fetch matches:', error)
@@ -160,7 +168,9 @@ const applyDateFilter = () => {
 }
   
 
-
+const navigateToCompetitions = () => {
+  router.push('/competitions')
+}
 onMounted(fetchMatches)
 
 
@@ -173,6 +183,16 @@ onMounted(fetchMatches)
   align-items: center;
   width: 30px; /* Ширина для текста "c" */
   height: 100%;
+}
+.breadcrumbs {
+  margin-bottom: 20px;
+}
+.breadcrumbs span {
+  cursor: pointer;
+  color: #3f51b5;
+}
+.breadcrumbs span:hover {
+  text-decoration: underline;
 }
 
 </style>
